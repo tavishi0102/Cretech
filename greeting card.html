@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greeting Card Creator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #faa7d8 25%, transparent 25%) -50px 0,
+                        linear-gradient(-45deg, #faa7d8 25%, transparent 25%) -50px 0,
+                        linear-gradient(45deg, transparent 75%, #faa7d8 75%) -50px 0,
+                        linear-gradient(-45deg, transparent 75%, #faa7d8 75%) -50px 0;
+            background-color: #e5e5f7;
+            background-size: 10px 40px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .card-container {
+            width: 350px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #ff4757;
+        }
+
+        .card-preview {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: 0.5s;
+        }
+
+        .card-preview.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+    
+        .container {
+            width: 100vw;
+            height: 100vh; 
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1; 
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container"></div>
+    <div class="card-container">
+        <h2>Create Your Greeting Card</h2>
+        <form id="cardForm">
+            <label for="name">Recipient's Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" required></textarea>
+
+            <label for="occasion">Occasion:</label>
+            <select id="occasion">
+                <option value="Birthday">Birthday</option>
+                <option value="Anniversary">Anniversary</option>
+                <option value="Graduation">Graduation</option>
+            </select>
+
+            <button type="submit">Generate Card</button>
+        </form>
+
+        <div id="cardPreview" class="card-preview">
+            <h3 id="cardTitle"></h3>
+            <p id="cardMessage"></p>
+        </div>
+
+        <button id="downloadBtn">Download Card</button>
+    </div>
+
+    <script>
+        document.getElementById("cardForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const message = document.getElementById("message").value;
+            const occasion = document.getElementById("occasion").value;
+
+            document.getElementById("cardTitle").innerText = `Happy ${occasion}, ${name}!`;
+            document.getElementById("cardMessage").innerText = message;
+
+            const cardPreview = document.getElementById("cardPreview");
+            cardPreview.classList.add("show");
+        });
+
+        document.getElementById("downloadBtn").addEventListener("click", function() {
+            alert("Feature coming soon!");
+        });
+    </script>
+</body>
+</html>
+
+
+

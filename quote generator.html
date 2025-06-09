@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quote Generator</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    html, body {
+      height: 100vh;
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+      overflow: hidden; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: radial-gradient(black 55%, transparent),
+             linear-gradient(135deg, red, orange, yellow, lime, cyan, blue, indigo, deeppink);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+     } 
+
+    button {
+      all: unset;
+     }
+
+    .button {
+     position: relative;
+     display: inline-flex;
+     height: 3.5rem;
+     align-items: center;
+     border-radius: 9999px;
+     padding-left: 2rem;
+     padding-right: 2rem;
+     font-family: Segoe UI;
+     font-size: 1.2rem;
+     font-weight: 640;
+     color: #fafaf6;
+     letter-spacing: -0.06em;
+    }
+
+    .button-item {
+     background-color: transparent;
+     color: #1d1d1f;
+    }
+
+    .button-item .button-bg {
+     border-color: rgba(255, 208, 116);
+     background-color: rgba(255, 208, 116);
+    }
+
+    .button-inner,
+    .button-inner-hover,
+    .button-inner-static {
+     pointer-events: none;
+     display: block;
+    }
+
+    .button-inner {
+     position: relative;
+    }
+
+    .button-inner-hover {
+     position: absolute;
+     top: 0;
+     left: 0;
+     opacity: 0;
+     transform: translateY(70%);
+    }
+
+    .button-bg {
+     overflow: hidden;
+     border-radius: 2rem;
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     transform: scale(1);
+     transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .button-bg,
+    .button-bg-layer,
+    .button-bg-layers {
+     display: block;
+    }
+
+    .button-bg-layers {
+     position: absolute;
+     left: 50%;
+     transform: translate(-50%);
+     top: -60%;
+     aspect-ratio: 1 / 1;
+     width: max(200%, 10rem);
+    }
+
+    .button-bg-layer {
+     border-radius: 9999px;
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     transform: scale(0);
+    }
+
+    .button-bg-layer.-purple {
+     background-color: rgba(163, 116, 255);
+    }
+
+    .button-bg-layer.-turquoise {
+     background-color: rgba(23, 241, 209);
+    }
+
+    .button-bg-layer.-yellow {
+     --tw-bg-opacity: 1;
+     background-color: rgba(255, 208, 116, var(--tw-bg-opacity));
+    }
+
+    .button:hover .button-inner-static {
+     opacity: 0;
+     transform: translateY(-70%);
+     transition:
+       transform 1.4s cubic-bezier(0.19, 1, 0.22, 1),
+       opacity 0.3s linear;
+    }
+
+    .button:hover .button-inner-hover {
+     opacity: 1;
+     transform: translateY(0);
+     transition:
+       transform 1.4s cubic-bezier(0.19, 1, 0.22, 1),
+       opacity 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .button:hover .button-bg-layer {
+     transition:
+      transform 1.3s cubic-bezier(0.19, 1, 0.22, 1),
+      opacity 0.3s linear;
+    }
+
+    .button:hover .button-bg-layer-1 {
+      transform: scale(1);
+    }
+
+    .button:hover .button-bg-layer-2 {
+     transition-delay: 0.1s;
+     transform: scale(1);
+    }
+
+    .button:hover .button-bg-layer-3 {
+     transition-delay: 0.2s;
+     transform: scale(1);
+    }
+    .quote-box {
+      max-width: 500px;
+      padding: 20px;
+      text-align: center;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+       
+   .share-button {
+     font-family: inherit;
+     font-size: 20px;
+     background: royalblue;
+     color: white;
+     padding: 0.7em 1em;
+     padding-left: 0.9em;
+     display: flex;
+     align-items: center;
+     border: none;
+     border-radius: 16px;
+     overflow: hidden;
+     transition: all 0.2s;
+     cursor: pointer;
+    }
+
+   .share-button span {
+     display: block;
+     margin-left: 0.3em;
+     transition: all 0.3s ease-in-out;
+    }
+
+   .share-button svg {
+     display: block;
+     transform-origin: center center;
+     transition: transform 0.3s ease-in-out;
+    }
+
+   .share-button:hover .svg-wrapper {
+     animation: fly-1 0.6s ease-in-out infinite alternate;
+    }
+
+   .share-button:hover svg {
+     transform: translateX(1.2em) rotate(45deg) scale(1.1);
+    }
+
+   .share-button:hover span {
+     transform: translateX(5em);
+    }
+
+   .share-button:active {
+     transform: scale(0.95);
+    }
+
+   @keyframes fly-1 {
+     from {
+       transform: translateY(0.1em);
+      }
+     to {
+       transform: translateY(-0.1em);
+      }
+    }
+   .button-container {
+     display: flex;
+     justify-content: center;
+     align-items: center; 
+     gap: 15px; 
+     margin-top: 15px; 
+    }
+  </style>
+</head>
+<body>
+    <div class="quote-box">
+       <h2 class="mb-3" style="font-family: 'Times New Roman', Times, serif;">Random Quote Generator</h2>
+       <p id="quote" class="fs-5">Click the button to see a quote!</p>
+        
+    <div class="button-container">
+     <button class="share-button" onclick="shareQuote()">
+       <div class="svg-wrapper-1">
+         <div class="svg-wrapper">
+             <svg
+             xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 24 24"
+             width="24"
+             height="24"
+             >
+            <path fill="none" d="M0 0h24v24H0z"></path>
+             <path
+             fill="currentColor"
+             d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+             ></path>
+            </svg>
+          </div>
+       </div>
+       <span>Share</span>
+      </button>
+
+      <button class="button button-item" onclick="generateQuote()">
+         <span class="button-bg">
+         <span class="button-bg-layers">
+         <span class="button-bg-layer button-bg-layer-1 -purple"></span>
+         <span class="button-bg-layer button-bg-layer-2 -turquoise"></span>
+         <span class="button-bg-layer button-bg-layer-3 -yellow"></span>
+         </span>
+         </span>
+         <span class="button-inner">
+         <span class="button-inner-static">New Quote</span>
+         <span class="button-inner-hover">New Quote</span>
+         </span>
+      </button>
+   </div>
+
+   <script>
+       const quotes = [
+         "Nothing is impossible, the word itself says 'I'm possible'!.",
+         "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+         "Do what you can, with what you have, where you are.",
+          "Be sure you put your feet in the right place, then stand firm.",
+          "Your limitation—it's only your imagination.",
+          "Dream big and dare to fail."
+        ];
+        function generateQuote() {
+           const randomIndex = Math.floor(Math.random() * quotes.length);
+           document.getElementById("quote").textContent = quotes[randomIndex];
+        }
+        function shareQuote() {
+           const quoteText = document.getElementById("quote").textContent;
+           const twitterUrl = `https://twitter.com/intent/tweet?text="${quoteText}"`;
+           const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(quoteText)}`;
+           const facebookUrl = `https://www.facebook.com/sharer/sharer.php?quote=${encodeURIComponent(quoteText)}`;
+
+    // platform menu
+           const shareOptions = `
+             Choose where to share:
+               1️⃣ Twitter
+               2️⃣ WhatsApp
+               3️⃣ Facebook
+            `;
+           const choice = prompt(shareOptions);
+
+    // Open platform
+             if (choice === "1") window.open(twitterUrl, "_blank");
+             else if (choice === "2") window.open(whatsappUrl, "_blank");
+             else if (choice === "3") window.open(facebookUrl, "_blank");
+             else alert("Invalid choice! Please enter 1, 2, or 3.");
+         }
+
+    </script>
+</body>
+</html>
+
+
